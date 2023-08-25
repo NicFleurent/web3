@@ -94,7 +94,7 @@
         }
 
         if(!$validationtransport){
-            $transportErreur = "Vous devez choisir au moins une option une option";
+            $transportErreur = "Vous devez choisir au moins une option";
             $erreur = true;
         }
 
@@ -142,7 +142,7 @@
                             }
                             else{
                         ?>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="invalidPassword">
                                 Le mot de passe est requis
                             </div>
                         <?php 
@@ -164,7 +164,7 @@
                             }
                             else{
                         ?>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="invalidPasswordConfirmation">
                                 La confirmation de votre mot de passe est requise
                             </div>
                         <?php 
@@ -186,7 +186,7 @@
                             }
                             else{
                         ?>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback"  id="invalidEmail">
                                 L'adresse courriel est requise
                             </div>
                         <?php 
@@ -208,7 +208,7 @@
                             }
                             else{
                         ?>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback"  id="invalidURL">
                                 L'URL d'image est requise
                             </div>
                         <?php 
