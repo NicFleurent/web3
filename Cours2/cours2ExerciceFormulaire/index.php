@@ -105,7 +105,7 @@
     if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
     ?>
         <div class="container">
-            <form class="row g-3 needs-validation" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
+            <form id="form" class="row g-3 needs-validation" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" novalidate>
                 <div class="row mb-3 mt-5">
                     <label for="username" class="col-sm-2 col-form-label">Nom d'usager</label>
                     <div class="col-sm-10">
@@ -279,7 +279,7 @@
                 </div>
                 <fieldset class="row mb-3">
                     <legend class="col-form-label col-sm-2 pt-0">Moyen de transport</legend>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10" id="moyenTransport">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="auto" name="auto" <?php echo($auto == "on") ? "checked" : "" ?>>
                             <label class="form-check-label" for="auto">

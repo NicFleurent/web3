@@ -3,6 +3,12 @@ let password = document.getElementById("password");
 let passwordConfirmation = document.getElementById("passwordConfirmation");
 let email = document.getElementById("email");
 let srcImg = document.getElementById("srcImg");
+let form = document.getElementById("form");
+let moyenTransport = document.getElementById("moyenTransport");
+let auto = document.getElementById("auto");
+let autobus = document.getElementById("autobus");
+let marche = document.getElementById("marche");
+let velo = document.getElementById("velo");
 
 let invalidUsername = document.getElementById("invalidUsername");
 let invalidPassword = document.getElementById("invalidPassword");
@@ -15,6 +21,8 @@ let inputPassword;
 let inputPasswordConfirmation;
 let inputEmail;
 let inputSrcImg;
+
+let transportValider = false;
 
 const regexURL = /\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i;
 const regexEmail = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -82,3 +90,39 @@ srcImg.addEventListener("input", function(event){
         invalidURL.style.display = "none";
     }
 });
+
+auto.addEventListener("change", valideTransport);
+autobus.addEventListener("change", valideTransport);
+marche.addEventListener("change", valideTransport);
+velo.addEventListener("change", valideTransport);
+
+let transportErreur = document.createElement("div");
+transportErreur.setAttribute("class", "invalid-feedback");
+transportErreur.innerHTML = "Veuillez choisir au moins une des options";
+transportErreur.style.display = "none";
+moyenTransport.appendChild(transportErreur);
+
+function valideTransport(){
+    if(form.auto.checked){
+        transportValider = true;
+    }
+    else if(form.autobus.checked){
+        transportValider = true;
+    }
+    else if(form.marche.checked){
+        transportValider = true;
+    }
+    else if(form.velo.checked){
+        transportValider = true;
+    }
+    else{
+        transportValider = false;
+    }
+
+    if(!transportValider){
+        transportErreur.style.display = "block";
+    }
+    else{
+        transportErreur.style.display = "none";
+    }
+}
