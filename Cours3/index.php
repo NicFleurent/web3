@@ -60,6 +60,7 @@
     ?>
             </tbody>
         </table>
+    <div class="text-center mt-3 mb-3">
         <a class="btn btn-success" href="./ajouter.php" role="button">Ajouter</a>
     </div>
 
