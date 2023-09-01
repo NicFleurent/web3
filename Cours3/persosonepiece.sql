@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mar 29 Août 2023 à 21:27
+-- Généré le :  Ven 01 Septembre 2023 à 14:38
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.3
 
@@ -39,15 +39,14 @@ CREATE TABLE `persosonepiece` (
 --
 
 INSERT INTO `persosonepiece` (`id`, `nom`, `prime`, `image`, `equipage`) VALUES
-(1, 'Monkey D. Luffy', 3000000000, 'https://wallpaperset.com/w/full/8/6/0/110429.jpg', 'Chapeau de paille'),
 (2, 'Roronoa Zoro', 1111000000, 'https://orig00.deviantart.net/df2c/f/2016/131/9/7/roronoa_zoro___one_piece_by_enrestoxd-da253hn.jpg', 'Chapeau de paille'),
 (3, 'Sanji', 1032000000, 'https://images8.alphacoders.com/100/thumb-1920-1002981.png', 'Chapeau de paille'),
 (4, 'Marchalls D. Teach', 3996000000, 'https://th.bing.com/th/id/OIP.cJnDeKV3_gkPg5-z-mMMnQHaEK?pid=ImgDet&rs=1', 'Pirates de Barbe noire'),
-(6, 'Marco', 1374000000, 'https://i.pinimg.com/736x/b7/9a/22/b79a22893d912a876f7ea1f231394368.jpg', 'Pirates de Barbe blanche'),
+(6, 'Marco2', 1374000000, 'https://i.pinimg.com/736x/b7/9a/22/b79a22893d912a876f7ea1f231394368.jpg', 'Pirates de Barbe blanche'),
 (7, 'Chopper', 1000, 'https://th.bing.com/th/id/R.007a6324a8c1ec7faa4a07cf54e7d832?rik=X%2f97n04TmwtwfQ&amp;riu=http%3a%2f%2fvignette1.wikia.nocookie.net%2ffairyonepiecetail%2fimages%2fe%2fed%2fAnimepaper_net_vector_standard_anime_one_piece_2yl_tony_tony_chopper_218677_hao_sama_preview-ede19200.jpg%2frevision%2flatest%3fcb%3d20130719134927&amp;ehk=hnncT4%2bf01F%2b2dG%2fnX2XjJ8IpuPhMP2FwS2Pl%2fZZ8EY%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0', 'Chapeau de paille'),
 (8, 'Koby', 0, 'https://th.bing.com/th/id/R.0d03bb8aa1d3c23f919fea747636ba4f?rik=dsDOYOc5T6m3fA&amp;riu=http%3a%2f%2f1.bp.blogspot.com%2f-cRQgdb0Y_Ec%2fTh6epBEv2hI%2fAAAAAAAAAH8%2f_3cj1I6leRs%2fs1600%2fcoby.jpg&amp;ehk=LC1FdZF4EZX81C3qnl%2b9pyG%2fVuA4oTy1XFjwH%2fDaVig%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0', 'Marine'),
-(9, 'Test', 9999, 'https://th.bing.com/th/id/R.a9557c91c2dd70bcac67938e0b384a2c?rik=cgi1jVIfUHfaOQ&amp;riu=http%3a%2f%2fcliparts.co%2fcliparts%2f8iG%2fb5X%2f8iGb5XKbT.jpg&amp;ehk=n7KZax1HQ%2by8bMtkU8XpmtpDOzR8ZBjsKScHEAWFC2M%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0', 'Aucune'),
-(10, 'qwer', 1234, 'https://img00.deviantart.net/83c7/i/2013/237/e/6/buggy__one_piece__by_kasianagel-d6jmrck.jpg', 'wwer');
+(13, 'Nico Robin', 88000000, 'https://th.bing.com/th/id/R.9e8e842869f67533cf5d5d2e32c4c6c6?rik=V5yQRy80fR3rQA&amp;riu=http%3a%2f%2fwallpapercave.com%2fwp%2fayE6Rkc.jpg&amp;ehk=dxHUYb5R1Xi2v1PApT7VluJxWnZ1%2b5Rd6UOOMlajASQ%3d&amp;risl=&amp;pid=ImgRaw&amp;r=0', 'Chapeau de paille'),
+(16, 'Luffy', 30000000, 'https://phobiacures.info/blog/wp-content/uploads/2009/12/test.jpg', 'Chapeau de paille');
 
 --
 -- Index pour les tables exportées
@@ -67,7 +66,7 @@ ALTER TABLE `persosonepiece`
 -- AUTO_INCREMENT pour la table `persosonepiece`
 --
 ALTER TABLE `persosonepiece`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

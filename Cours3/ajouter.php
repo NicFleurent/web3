@@ -62,8 +62,7 @@
         $sql = "INSERT INTO persosonepiece (nom, prime, image, equipage) 
         VALUES ('" . $nom . "', '" . $prime . "', '" . $image . "', '" . $equipage . "')";
         if (mysqli_query($conn, $sql)) {
-            echo "Enregistrement réussi";
-            header("Location: ./index.php");
+            header("Location: ./index.php?succes=ajouter");
             die();
         } else {
             $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -172,7 +171,7 @@
                 </div>
             </form>
             <div class="text-center">
-                <a class="btn btn-success mt-2" href="./index.php" role="button">Retourner à la page d'accueil</a>
+                <a class="btn btn-primary mt-2" href="./index.php" role="button">Retourner à la page d'accueil</a>
             </div>
 
         </div>

@@ -1,0 +1,16 @@
+a{
+    padding: 8px;
+    display: block;
+    color: black;
+    text-decoration-line: none;
+}
+
+th div{
+    height: 100%;
+    width: 100%;
+}
+
+th, td {
+    vertical-align: middle;
+    padding: 0px !important;
+}

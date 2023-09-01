@@ -17,9 +17,12 @@ const regexURL = /\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-
 
 nom.addEventListener("input", function(event){
     inputNom = nom.value;
-
+    
     if(inputNom === "" || inputNom === null){
         invalidNom.style.display = "block";
+    }
+    else{
+        invalidNom.style.display = "none";
     }
 });
 
@@ -29,6 +32,9 @@ prime.addEventListener("input", function(event){
     if(inputPrime === "" || inputPrime === null){
         invalidPrime.style.display = "block";
     }
+    else{
+        invalidPrime.style.display = "none";
+    }
 });
 
 equipage.addEventListener("input", function(event){
@@ -36,6 +42,9 @@ equipage.addEventListener("input", function(event){
 
     if(inputEquipage === "" || inputEquipage === null){
         invalidEquipage.style.display = "block";
+    }
+    else{
+        invalidEquipage.style.display = "none";
     }
 });
 
