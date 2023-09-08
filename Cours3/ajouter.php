@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,66 +14,67 @@
 
 <body>
     <?php
-    $nom = $prime = $image = $equipage = "";
-    $nomErreur = $primeErreur = $imageErreur = $equipageErreur = $erreurSQL = "";
-    $erreur = false;
+    if($_SESSION['connexion'] == true){
+        $nom = $prime = $image = $equipage = "";
+        $nomErreur = $primeErreur = $imageErreur = $equipageErreur = $erreurSQL = "";
+        $erreur = false;
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (empty($_POST['nom'])) {
-            $nomErreur = "Le nom est requis<br>";
-            $erreur = true;
+            if (empty($_POST['nom'])) {
+                $nomErreur = "Le nom est requis<br>";
+                $erreur = true;
+            }
+            $nom = test_input($_POST["nom"]);
+
+            if (empty($_POST['prime'])) {
+                $primeErreur = "La prime est requise<br>";
+                $erreur = true;
+            }
+            $prime = test_input($_POST["prime"]);
+
+            if (empty($_POST['equipage'])) {
+                $equipageErreur = "L'équipage est requise<br>";
+                $erreur = true;
+            }
+            $equipage = test_input($_POST["equipage"]);
+
+            $image = test_input($_POST["image"]);
+            if (empty($_POST['image'])) {
+                $imageErreur = "L'URL est requise";
+                $erreur = true;
+            } else if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $image)) {
+                $imageErreur = "L'URL n'est pas valide";
+                $erreur = true;
+            }
+
+
+            // Inserer dans la base de données
+            $servername = "localhost";
+            $username = "root";
+            $password = "root";
+            $dbname = "persosonepiece";
+
+            // Create connection
+            $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+            // Check connection
+            if (!$conn) {
+                die("Connection failed: " . mysqli_connect_error());
+            }
+
+            $sql = "INSERT INTO persosonepiece (nom, prime, image, equipage) 
+            VALUES ('" . $nom . "', '" . $prime . "', '" . $image . "', '" . $equipage . "')";
+            if (mysqli_query($conn, $sql)) {
+                header("Location: ./index.php?succes=ajouter");
+                die();
+            } else {
+                $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
+                $erreur = true;
+            }
+            mysqli_close($conn);
         }
-        $nom = test_input($_POST["nom"]);
-
-        if (empty($_POST['prime'])) {
-            $primeErreur = "La prime est requise<br>";
-            $erreur = true;
-        }
-        $prime = test_input($_POST["prime"]);
-
-        if (empty($_POST['equipage'])) {
-            $equipageErreur = "L'équipage est requise<br>";
-            $erreur = true;
-        }
-        $equipage = test_input($_POST["equipage"]);
-
-        $image = test_input($_POST["image"]);
-        if (empty($_POST['image'])) {
-            $imageErreur = "L'URL est requise";
-            $erreur = true;
-        } else if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $image)) {
-            $imageErreur = "L'URL n'est pas valide";
-            $erreur = true;
-        }
-
-
-        // Inserer dans la base de données
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "persosonepiece";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-        $sql = "INSERT INTO persosonepiece (nom, prime, image, equipage) 
-        VALUES ('" . $nom . "', '" . $prime . "', '" . $image . "', '" . $equipage . "')";
-        if (mysqli_query($conn, $sql)) {
-            header("Location: ./index.php?succes=ajouter");
-            die();
-        } else {
-            $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
-            $erreur = true;
-        }
-        mysqli_close($conn);
-    }
-    if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
+        if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
     ?>
         <div class="container">
             <div class="row">
@@ -176,6 +180,10 @@
 
         </div>
     <?php
+        }
+    }
+    else{
+        header("Location: ./connexion.php");
     }
 
     function test_input($data)

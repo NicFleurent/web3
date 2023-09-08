@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,105 +14,106 @@
 
 <body>
     <?php
-    $id = $nom = $prime = $image = $equipage = "";
-    $idErreur = $nomErreur = $primeErreur = $imageErreur = $equipageErreur = $erreurSQL = "";
-    $erreur = false;
+    if($_SESSION['connexion'] == true){
+        $id = $nom = $prime = $image = $equipage = "";
+        $idErreur = $nomErreur = $primeErreur = $imageErreur = $equipageErreur = $erreurSQL = "";
+        $erreur = false;
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (empty($_POST['id'])) {
-            $idErreur = "Vous n'avez pas d'ID<br>";
-            $erreur = true;
+            if (empty($_POST['id'])) {
+                $idErreur = "Vous n'avez pas d'ID<br>";
+                $erreur = true;
+            }
+            $id = test_input($_POST["id"]);
+
+            if (empty($_POST['nom'])) {
+                $nomErreur = "Le nom est requis<br>";
+                $erreur = true;
+            }
+            $nom = test_input($_POST["nom"]);
+
+            if (empty($_POST['prime'])) {
+                $primeErreur = "La prime est requise<br>";
+                $erreur = true;
+            }
+            $prime = test_input($_POST["prime"]);
+
+            if (empty($_POST['equipage'])) {
+                $equipageErreur = "L'équipage est requise<br>";
+                $erreur = true;
+            }
+            $equipage = test_input($_POST["equipage"]);
+
+            $image = test_input($_POST["image"]);
+            if (empty($_POST['image'])) {
+                $imageErreur = "L'URL est requise";
+                $erreur = true;
+            } else if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $image)) {
+                $imageErreur = "L'URL n'est pas valide";
+                $erreur = true;
+            }
+
+
+            // Inserer dans la base de données
+            $servername = "localhost";
+            $username = "root";
+            $password = "root";
+            $dbname = "persosonepiece";
+
+            // Create connection
+            $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+                
+
+            $sql = "UPDATE persosonepiece SET nom='". $nom. "', prime='". $prime ."', image='". $image . "', equipage='".$equipage."' WHERE id=". $id;
+            if ($conn->query($sql) === TRUE) {
+                header("Location: ./index.php?succes=modifier");
+                die();
+            } else {
+                $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
+                $erreur = true;
+            }
+            $conn->close();
         }
-        $id = test_input($_POST["id"]);
-
-        if (empty($_POST['nom'])) {
-            $nomErreur = "Le nom est requis<br>";
-            $erreur = true;
-        }
-        $nom = test_input($_POST["nom"]);
-
-        if (empty($_POST['prime'])) {
-            $primeErreur = "La prime est requise<br>";
-            $erreur = true;
-        }
-        $prime = test_input($_POST["prime"]);
-
-        if (empty($_POST['equipage'])) {
-            $equipageErreur = "L'équipage est requise<br>";
-            $erreur = true;
-        }
-        $equipage = test_input($_POST["equipage"]);
-
-        $image = test_input($_POST["image"]);
-        if (empty($_POST['image'])) {
-            $imageErreur = "L'URL est requise";
-            $erreur = true;
-        } else if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $image)) {
-            $imageErreur = "L'URL n'est pas valide";
-            $erreur = true;
-        }
-
-
-        // Inserer dans la base de données
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "persosonepiece";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
             
+            if (isset($_GET['id'])) {
+                $id = $_GET['id'];
+            }
 
-        $sql = "UPDATE persosonepiece SET nom='". $nom. "', prime='". $prime ."', image='". $image . "', equipage='".$equipage."' WHERE id=". $id;
-        if ($conn->query($sql) === TRUE) {
-            header("Location: ./index.php?succes=modifier");
-            die();
-        } else {
-            $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
-            $erreur = true;
-        }
-        $conn->close();
-    }
-    if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-        
-        if (isset($_GET['id'])) {
-            $id = $_GET['id'];
-        }
+            echo $idErreur;
 
-        echo $idErreur;
+            $serveurname = "localhost";
+            $username = "root";
+            $password =  "root";
+            $db = "persosonepiece";
+            //Create connection
+            $conn = new mysqli($serveurname, $username, $password, $db);
+            //Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
 
-        $serveurname = "localhost";
-        $username = "root";
-        $password =  "root";
-        $db = "persosonepiece";
-        //Create connection
-        $conn = new mysqli($serveurname, $username, $password, $db);
-        //Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+            //Ça ne fais rien, c'est jsute la requête
+            $sql = "SELECT * FROM persosonepiece WHERE id=". $id;
 
-        //Ça ne fais rien, c'est jsute la requête
-        $sql = "SELECT * FROM persosonepiece WHERE id=". $id;
+            $conn->query('SET NAMES utf8');
+            //Effectue la requête
+            $result = $conn->query($sql);
 
-        $conn->query('SET NAMES utf8');
-        //Effectue la requête
-        $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                $row = $result->fetch_assoc();
+            }
 
-        if($result->num_rows > 0){
-            $row = $result->fetch_assoc();
-        }
-
-        $nom = $row["nom"];
-        $prime = $row["prime"];
-        $image = $row["image"];
-        $equipage = $row["equipage"];
+            $nom = $row["nom"];
+            $prime = $row["prime"];
+            $image = $row["image"];
+            $equipage = $row["equipage"];
     ?>
         <div class="container">
             <div class="row">
@@ -222,6 +226,10 @@
 
         </div>
     <?php
+        }
+    }
+    else{
+        header("Location: ./connexion.php");
     }
 
     function test_input($data)

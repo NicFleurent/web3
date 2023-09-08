@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,55 +11,60 @@
 </head>
 <body>
     <?php
-    $id  = "";
-    $idErreur = "";
-    $erreur = false;
+    if($_SESSION['connexion'] == true){
+        $id  = "";
+        $idErreur = "";
+        $erreur = false;
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        if (empty($_POST['id'])) {
-            $idErreur = "Vous n'avez pas d'ID<br>";
-            $erreur = true;
+            if (empty($_POST['id'])) {
+                $idErreur = "Vous n'avez pas d'ID<br>";
+                $erreur = true;
+            }
+            $id = test_input($_POST["id"]);
+
+
+            // Inserer dans la base de données
+            $servername = "localhost";
+            $username = "root";
+            $password = "root";
+            $dbname = "persosonepiece";
+
+            // Create connection
+            $conn = mysqli_connect($servername, $username, $password, $dbname);
+
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+                
+
+            $sql = "DELETE FROM persosonepiece WHERE id=". $id;
+            if ($conn->query($sql) === TRUE) {
+                header("Location: ./index.php?succes=supprimer");
+                die();
+            } else {
+                $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
+                $erreur = true;
+            }
+            $conn->close();
         }
-        $id = test_input($_POST["id"]);
+        if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
 
-
-        // Inserer dans la base de données
-        $servername = "localhost";
-        $username = "root";
-        $password = "root";
-        $dbname = "persosonepiece";
-
-        // Create connection
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-            
-
-        $sql = "DELETE FROM persosonepiece WHERE id=". $id;
-        if ($conn->query($sql) === TRUE) {
-            header("Location: ./index.php?succes=supprimer");
-            die();
-        } else {
-            $erreurSQL = "Error: " . $sql . "<br>" . mysqli_error($conn);
-            $erreur = true;
-        }
-        $conn->close();
-    }
-    if ($_SERVER["REQUEST_METHOD"] != "POST" || $erreur == true) {
-
-        echo $erreurSQL;
-        echo $idErreur;
-        if(!$erreur){
+            echo $erreurSQL;
+            echo $idErreur;
+            if(!$erreur){
     ?>
     <div>
         Vous ne pouvez pas acceder directement à cette page
     </div>
     <?php
+            }
         }
+    }
+    else{
+        header("Location: ./connexion.php");
     }
 
     function test_input($data)
